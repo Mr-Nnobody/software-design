@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Delete Student</title>
+  <style>
+    body {
+      background-color: #D3D3D3;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header img {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" >Student Management System</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Dashboard</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="add_student.html">Add Student</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="delete_student.html">Delete Student</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <!-- <img  class= "img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOwxgunZtSa_5t6tTu4c4GbJ2F31VTYBnnmg&usqp=CAU" alt="Trash Can"> -->
+      <h1 style="padding-top: 40px;">Delete Student</h1>
+    </div>
+    <form id="deleteStudentForm">
+      <div class="form-group">
+        <label for="studentName">Student Name</label>
+        <input type="text" class="form-control" id="studentName" required>
+      </div>
+      <div class="form-group">
+        <label for="candidateNumber">Candidate Number</label>
+        <input type="text" class="form-control" id="candidateNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="school">School</label>
+        <input type="text" class="form-control" id="school" required>
+      </div>
+      <div class="form-group">
+        <label for="region">Region</label>
+        <input type="text" class="form-control" id="region" required>
+      </div>
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+
+  <script>
+    // Event listener for form submission
+    document.getElementById('deleteStudentForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const studentName = document.getElementById('studentName').value;
+      const candidateNumber = document.getElementById('candidateNumber').value;
+      const school = document.getElementById('school').value;
+      const region = document.getElementById('region').value;
+
+      // TODO: Perform AJAX request to delete the student record from the server
+
+      // Clear form values
+      document.getElementById('deleteStudentForm').reset();
+    });
+  </script>
+</body>
+</html>

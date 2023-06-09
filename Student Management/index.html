@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Student Management System</title>
+  <style>
+    body {
+    background-color: #D3D3D3;
+    background-image: url("image.jpg");
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;  
+    padding-top: 20%;
+    }
+    .landing-page {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+    }
+    .use-case-button {
+      width: 40%;
+      height: 100px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      background-color: #007bff;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .use-case-button:hover {
+      background-color: #00b309;
+    }
+    .use-case-description {
+      position: relative;
+      font-size: 14px;
+      color: #fffbfb;
+      margin-top: 10px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .use-case-button:hover .use-case-description {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="landing-page">
+        <a  class="use-case-button" href="add_student.html">
+      <div>
+        Add Student
+        <div class="use-case-description">
+          Add a new student record to the system.
+        </div>
+      </div>
+    </a>
+      <a class="use-case-button" href="delete_student.html">
+      <div>
+        Delete Student
+        <div class="use-case-description">
+          Delete an existing student record from the system.
+        </div>
+      </div>
+    </a>
+      <div class="use-case-button">
+        View Students
+        <div class="use-case-description">
+          View a list of all students in the system.
+        </div>
+      </div>
+      <div class="use-case-button">
+        View Schools
+        <div class="use-case-description">
+          View a list of all schools in the system.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <title>Add Student</title>
+  <style>
+    body {
+      background-color:#cfd8e4;
+      background-image: url("stude.jpg");
+      background-size:cover;
+      background-repeat: no-repeat;
+      background-position: right; 
+    }
+    .button{
+      align-items: center;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" >Student Management System</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Dashboard</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="add_student.html">Add Student</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="delete_student.html">Delete Student</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <h1 style="text-align: center; padding:40px;">Add Student Record</h1>
+    <form id="addStudentForm" action="http://localhost:8000/add_student.php" method="POST">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="surname">Surname</label>
+        <input type="text" class="form-control" id="surname" name="surname" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="candidateNumber">Candidate Number</label>
+        <input type="text" class="form-control" id="candidateNumber" name="candidateNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="papersPassed">Number of Papers Passed</label>
+        <input type="number" class="form-control" id="papersPassed" name="papersPassed" required>
+      </div>
+
+      <div id="subjectGradesContainer"></div>
+
+      <div class="form-group">
+        <label for="school">School</label>
+        <input type="text" class="form-control" id="school" name="school" required>
+      </div>
+      <div class="form-group">
+        <label for="centerNumber">Center Number</label>
+        <input type="text" class="form-control" id="centerNumber" name="centerNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="region">Region</label>
+        <input type="text" class="form-control" id="region" name="region" required>
+      </div>
+      <div class="button">
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Function to dynamically generate subject and grade fields
+    function generateSubjectFields(numPapers) {
+      const container = document.getElementById('subjectGradesContainer');
+      container.innerHTML = '';
+
+      for (let i = 1; i <= numPapers; i++) {
+        const subjectLabel = document.createElement('label');
+        subjectLabel.textContent = `Subject ${i}`;
+        const subjectSelect = document.createElement('select');
+        subjectSelect.className = 'form-control';
+        subjectSelect.name = `subject[${i - 1}]`;
+
+        // Default option for subject
+        const defaultSubjectOption = document.createElement('option');
+        defaultSubjectOption.textContent = 'Select Subject';
+        defaultSubjectOption.disabled = true;
+        defaultSubjectOption.selected = true;
+        subjectSelect.appendChild(defaultSubjectOption);
+
+        // Add options for subjects
+        const subjects = ['English', 'Biology', 'Mathematics', 'Additional Mathematics', 'Chemistry', 'Literature', 'Physics', 'History', 'Economics', 'Geography', 'Religion', 'Geology', 'Commerce', 'French', 'Logic', 'Other'];
+        for (const subject of subjects) {
+          const option = document.createElement('option');
+          option.textContent = subject;
+          subjectSelect.appendChild(option);
+        }
+
+        const gradeLabel = document.createElement('label');
+        gradeLabel.textContent = 'Grade';
+        const gradeSelect = document.createElement('select');
+        gradeSelect.className = 'form-control';
+        gradeSelect.name = `grade[${i - 1}]`;
+
+        // Default option for grade
+        const defaultGradeOption = document.createElement('option');
+        defaultGradeOption.textContent = 'Select Grade';
+        defaultGradeOption.disabled = true;
+        defaultGradeOption.selected = true;
+        gradeSelect.appendChild(defaultGradeOption);
+
+        // Add options for grades
+        const grades = ['A', 'B', 'C'];
+        for (const grade of grades) {
+          const option = document.createElement('option');
+          option.textContent = grade;
+          gradeSelect.appendChild(option);
+        }
+
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'form-row';
+
+        const subjectDiv = document.createElement('div');
+        subjectDiv.className = 'form-group col-md-6';
+        const gradeDiv = document.createElement('div');
+        gradeDiv.className = 'form-group col-md-6';
+
+        subjectDiv.appendChild(subjectLabel);
+        subjectDiv.appendChild(subjectSelect);
+        gradeDiv.appendChild(gradeLabel);
+        gradeDiv.appendChild(gradeSelect);
+
+        rowDiv.appendChild(subjectDiv);
+        rowDiv.appendChild(gradeDiv);
+
+        container.appendChild(rowDiv);
+      }
+    }
+
+    // Listener for form submission
+    document.getElementById('addStudentForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const form = document.getElementById('addStudentForm');
+      const formData = new FormData(form);
+
+      // Perform AJAX request to submit the form data to the server
+      fetch('add_student.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Clear the form values if submission was successful
+        if (data.success) {
+          form.reset();
+        }
+        console.log(data.message);
+      })
+      .catch(error => console.error(error));
+    });
+
+    // Listener for number of papers input
+    document.getElementById('papersPassed').addEventListener('input', function(event) {
+      const numPapers = parseInt(event.target.value);
+      generateSubjectFields(numPapers);
+    });
+  </script>
+ 
+</body>
+</html>
